@@ -1,0 +1,26 @@
+{
+  "name": "charge",
+  "description": "Stripe Checkout Charge",
+  "args": [],
+  "kwargs": {
+    "stripeToken": "The ID of the token representing the payment details",
+    "stripeEmail": "The email address the user entered during the Checkout process",
+    "stripeBillingName": "Billing Address information (optional)",
+    "stripeBillingAddressLine1": "Billing Address information (optional)",
+    "stripeBillingAddressZip": "Billing Address information (optional)",
+    "stripeBillingAddressState": "Billing Address information (optional)",
+    "stripeBillingAddressCity": "Billing Address information (optional)",
+    "stripeBillingAddressCountry": "Billing Address information (optional)",
+    "stripeShippingName": "Shipping Addrses information (optional)",
+    "stripeShippingAddressLine1": "Shipping Addrses information (optional)",
+    "stripeShippingAddressZip": "Shipping Addrses information (optional)",
+    "stripeShippingAddressState": "Shipping Addrses information (optional)",
+    "stripeShippingAddressCity": "Shipping Addrses information (optional)",
+    "stripeShippingAddressCountry": "Shipping Addrses information (optional)"
+  },
+  "http": {
+    "headers": {
+        "Content-Type": "application/json"
+    }
+  }
+}
