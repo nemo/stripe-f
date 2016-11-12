@@ -1,10 +1,14 @@
 {
-  "name": "stripe",
+  "name": "stripe-f",
   "version": "0.0.0",
-  "description": "Service",
+  "description": "Stripe Serverless Service",
   "author": "nemo <nima@halfmoon.ws>",
   "main": "f/charge/index.js",
-  "dependencies": {},
+  "dependencies": {
+    "qs": "^6.3.0",
+    "stripe": "^4.12.0",
+    "url": "^0.11.0"
+  },
   "private": true,
   "stdlib": {
     "name": "nemo/stripe",

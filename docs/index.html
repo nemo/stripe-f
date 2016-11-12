@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Serverless Stripe integration with stdlib</title>
+    </head>
+    <body>
+
+        <form action="https://f.stdlib.com/nemo/stripe@dev/charge_checkout" method="POST">
+            <input type="hidden" name="redirectUrl" value="https://google.com/" />
+            <script
+                src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                data-key="pk_test_Wde01TzOa2lCe3mGBRuRxBOQ"
+                data-amount="999"
+                data-name="Nima Gardideh"
+                data-shipping-address="true"
+                data-billing-address="true"
+                data-description="Widget"
+                data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                data-locale="auto">
+              </script>
+        </form>
+    </body>
+</html>

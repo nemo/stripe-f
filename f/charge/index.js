@@ -1,20 +1,37 @@
 /* Import dependencies, declare constants */
+var qs = require('qs');
+var stripe = require("stripe")(process.env.STRIPE_API_KEY);
+var amountToCharge = parseInt(process.env.AMOUNT);
 
-/**
-* Your function call
-* @param {Object} params Execution parameters
-*   Members
-*   - {Array} args Arguments passed to function
-*   - {Object} kwargs Keyword arguments (key-value pairs) passed to function
-*   - {String} remoteAddress The IPv4 or IPv6 address of the caller
-*
-* @param {Function} callback Execute this to end the function call
-*   Arguments
-*   - {Error} error The error to show if function fails
-*   - {Any} returnValue JSON serializable (or Buffer) return value
-*/
 module.exports = (params, callback) => {
+    var token = params.kwargs.stripeToken;
+    var email = params.kwargs.stripeEmail;
+    var shipping = {
+        name: params.kwargs.stripeShippingName,
+        address: {
+            line1: params.kwargs.stripeShippingAddressLine1,
+            line2: params.kwargs.stripeShippingAddressLine2,
+            postal_code: params.kwargs.stripeShippingAddressZip,
+            state: params.kwargs.stripeShippingAddressState,
+            city: params.kwargs.stripeShippingAddressCity,
+            country: params.kwargs.stripeShippingAddressCountry,
+        }
+    };
 
-  callback(null, params);
+    var chargeParams = {
+      amount: amountToCharge, // Amount in cents
+      currency: "usd",
+      source: token,
+      description: process.env.CHARGE_DESCRIPTION || "Example charge"
+    };
 
+    if (shipping && shipping.name.length)
+        chargeParams.shipping = shipping;
+
+    var charge = stripe.charges.create(chargeParams, function(err, charge) {
+        return callback(err, {
+            status: "ok",
+            message: ((charge.outcome || {}).seller_message) || 'Payment completed.'
+        });
+    });
 };

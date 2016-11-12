@@ -1,10 +1,9 @@
 {
-  "name": "charge",
-  "description": "Stripe Checkout Charge",
+  "name": "charge_checkout",
+  "description": "Stripe Checkout Charge (Form)",
   "args": [],
   "kwargs": {
-    "redirectUrl": "URL to redirect to on success or failure (required)",
-    "stripeToken": "The ID of the token representing the payment details (required)",
+    "stripeToken": "The ID of the token representing the payment details",
     "stripeEmail": "The email address the user entered during the Checkout process",
     "stripeBillingName": "Billing Address information (optional)",
     "stripeBillingAddressLine1": "Billing Address information (optional)",
@@ -20,6 +19,8 @@
     "stripeShippingAddressCountry": "Shipping Addrses information (optional)"
   },
   "http": {
-    "headers": {}
+    "headers": {
+        "Content-Type": "text/html"
+    }
   }
 }
