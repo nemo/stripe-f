@@ -3,6 +3,7 @@
   "description": "Stripe Checkout Charge (Form)",
   "args": [],
   "kwargs": {
+    "redirectUrl": "URL to redirect to on success or failure (required)",
     "stripeToken": "The ID of the token representing the payment details",
     "stripeEmail": "The email address the user entered during the Checkout process",
     "stripeBillingName": "Billing Address information (optional)",
