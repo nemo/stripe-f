@@ -21,7 +21,9 @@
   },
   "http": {
     "headers": {
-        "Content-Type": "text/html"
+        "Content-Type": "text/html",
+        "Access-Control-Allow-Origin": "nemo.github.io, http://nemo.github.io, https://nemo.github.io",
+        "Access-Control-Allow-Methods": "POST, OPTIONS"
     }
   }
 }

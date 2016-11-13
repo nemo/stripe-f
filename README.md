@@ -1,81 +1,38 @@
-# Your stdlib service: nemo/stripe
+# Stripe Charge API
 
-This is the README for your service.
+This is a [stdlib](https://stdlib.com) service that handles Stripe charges. You can create server-less landing pages that have payment functionality in minutes!
 
-A few notes;
+## Example
 
-`package.json` is NPM-compatible and contains some stdlib configuration details.
-`.gitignore` has also been provided for your convenience.
+You can find a working example [here](https://nemo.github.com/stripe-f). It's using a Stripe test environment, so you can use one of their [test credit cards](https://stripe.com/docs/testing#cards): `4242 4242 4242 4242`.
 
-# package.json
+## Usage
 
-This is a standard `package.json`. You'll notice an additional `"stdlib"` field.
-You can configure your service for the stdlib registry using;
+### stdlib Setup
 
-`name` - The name to register on stdlib, in the format of `<username>/<service>`.
-In order to compile to the registry you must have permission to compile to the
-provided username's account.
+#### Install function
+```bash
+lib get nemo/stripe
+```
 
-`defaultFunction` - Execute if provided no function route (root service).
-If not specified, your base service route will provide a list of available
-functions in JSON format.
+#### Edit environment
+You can set your Stripe API keys, amount to charge and the description of the charge using the environment variables in `env.json`. You can start by using the example one [here](/blob/master/env.json-example).
 
-`timeout` - The time in ms at which to kill service execution. Free accounts are
-limited to 30 seconds (30000).
+Here are the environment variables:
 
-`publish` - Whether to publish releases (versioned) to the stdlib public
-  directory. Packages pushed to the registry in non-release environments will
-  never be published.
+| Key | Description |
+| STRIPE_API_KEY | API key from Stripe. You can get them [here](https://dashboard.stripe.com/account/apikeys). |
+| AMOUNT | Amount to charge. This is set here for security reasons. It has to be in cents. |
+| CHARGE_DESCRIPTION | Text that shows up on the credit card statement |
 
-# env.json
+### Stripe button
 
-Environment configuration for your service. Each top level key (i.e.
-  `"dev"` and `"release"`) specifies their own set of key-value
-  pairs for a specific execution environment. The keys and values specified
-  are automatically added to the `process.env` variable in Node.js.
+If you want to make any major changes, please make a [fork](#fork-destination-box).
 
-`"dev"` is the *non-configurable* name of the local environment, but can
-also be used as an environment name for compilation
-(i.e. `$ lib up development`).
+### Documentation
+### /stripe/charge
+[function spec](/blob/master/f/charge/function.json) | [source](/blob/master/f/charge/index.js)
 
-`"release"` is the *non-configurable* name of the production environment when
-you create releases with `$ lib release`.
 
-You can add additional environments and key-value pairs, and use them for
-compilation with `lib up <environment>`. Note that free accounts are
-restricted to one compilation environment (aside from `"release"`).
-
-*We recommend against checking this file in to version control*. It will be
-saved with your tarball and is privately retrievable from the stdlib registry
-using your account credentials. It has been added to `.gitignore` by default.
-
-# f/charge/function.json
-
-This is your function definition file. The following fields can be used for
-execution configuration of specific functions within your service.
-
-`name` - The function name. This maps to an execution route over HTTP. For
-example, `nemo/stripe/charge` would map to the first
-function you've created.
-
-`description` - A brief description of the function. To provide detailed
-information about function execution, overwrite this README.
-
-`args` - An `Array` describing each argument as you expect them to be passed to
-`params.args`.
-
-`kwargs` - An `Object` describing each keyword argument as you expect them to be
-passed to `params.kwargs`
-
-`http` - Information to provide to function requests over HTTP.
-
-`http.headers` - HTTP headers to return in the response. Examples are
-`"Content-Type"` to specify file type if your function returns a `Buffer` or
-`"Access-Control-Allow-Origin"` to restrict browser-based function requests.
-
-# f/charge/index.js
-
-The entry point to your function described in `f/charge/function.json`.
-This is *non-configurable*. You may add as many subdirectories and supportive
-files as you like, but `index.js` will remain the entry point and *must*
-export a function to be active.
+### /stripe/charge_checkout
+[function spec](/blob/master/f/charge_checkout/function.json) | [source](/blob/master/f/charge_checkout/index.js)
