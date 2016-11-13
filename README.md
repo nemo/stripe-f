@@ -21,6 +21,7 @@ You can set your Stripe API keys, amount to charge and the description of the ch
 Here are the environment variables:
 
 | Key | Description |
+| --- | ----------- |
 | STRIPE_API_KEY | API key from Stripe. You can get them [here](https://dashboard.stripe.com/account/apikeys). |
 | AMOUNT | Amount to charge. This is set here for security reasons. It has to be in cents. |
 | CHARGE_DESCRIPTION | Text that shows up on the credit card statement |
