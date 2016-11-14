@@ -26,7 +26,8 @@ function handleSuccess(data) {}
 module.exports = (params, callback) => {
     var formData = params.buffer && params.buffer.toString() || '';
     var formParams = formData && formData.length && qs.parse(formData) || {};
-    var redirectUrl = url.parse(formParams.redirectUrl || '');
+    var redirectUrl = url.parse(process.env.REDIRECT_URL || '');
+    var timeoutDuration = process.env.REDIRECT_TIMEOUT && parseInt(process.env.REDIRECT_TIMEOUT) || 0;
     if (!redirectUrl) return callback(null, redirectUrl("No redirectUrl given!"));
 
     charge({
@@ -34,7 +35,7 @@ module.exports = (params, callback) => {
     }, (err, response) => {
         var query;
         if (err)
-            query = "payment_error=" + err.message
+            query = "payment_error=" + err.message + "&" + "payment_failure=true";
         else
             query = "payment_success=true";
 
@@ -42,8 +43,8 @@ module.exports = (params, callback) => {
         redirectUrl.search = "?" + redirectUrl.query;
 
         var redirectUrlPath = url.format(redirectUrl);
-        if (err) return callback(null, redirectPage(((err || {}).message) || "Something went wrong! Payment wasn't processed", redirectUrlPath, 15));
-        else return callback(null, redirectPage(response.message, redirectUrlPath, 0));
+        if (err) return callback(null, redirectPage(((err || {}).message) || "Something went wrong! Payment wasn't processed", redirectUrlPath, timeoutDuration));
+        else return callback(null, redirectPage(response.message, redirectUrlPath, timeoutDuration));
     });
 };
 

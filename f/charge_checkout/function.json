@@ -22,7 +22,7 @@
   "http": {
     "headers": {
         "Content-Type": "text/html",
-        "Access-Control-Allow-Origin": "nemo.github.io, http://nemo.github.io, https://nemo.github.io",
+        "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Methods": "POST, OPTIONS"
     }
   }
