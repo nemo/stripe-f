@@ -1,4 +1,5 @@
 # Stripe Charge API
+[![stdlib.com service](https://img.shields.io/badge/stdlib-0.1.0-green.svg?raw=true "stdlib.com service")](https://stdlib.com/services/nemo/stripe)
 
 This is a [stdlib](https://stdlib.com) service that handles Stripe charges. You can create server-less landing pages that have payment functionality in minutes!
 
