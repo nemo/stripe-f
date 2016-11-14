@@ -30,7 +30,8 @@ module.exports = (params, callback) => {
 
     var redirectUrl = url.parse(redirectUrlStr);
     var timeoutDuration = parseInt(timeoutDurationStr);
-    if (!redirectUrl) return callback(null, redirectUrl("No redirectUrl given!"));
+
+    if (!redirectUrl) return callback(null, redirectPage("No redirectUrl given!"));
 
     charge({
         kwargs: formParams
@@ -45,6 +46,10 @@ module.exports = (params, callback) => {
         redirectUrl.search = "?" + redirectUrl.query;
 
         var redirectUrlPath = url.format(redirectUrl);
+
+        if (err) return callback(null, {"failed": 1});
+        else return callback(null, {"success": true});
+
         if (err) return callback(null, redirectPage(((err || {}).message) || "Something went wrong! Payment wasn't processed", redirectUrlPath, timeoutDuration));
         else return callback(null, redirectPage(response.message, redirectUrlPath, timeoutDuration));
     });

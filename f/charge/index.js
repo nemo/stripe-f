@@ -1,12 +1,13 @@
 /* Import dependencies, declare constants */
 var qs = require('qs');
+var stripeLib = require('stripe');
 
 module.exports = (params, callback) => {
     var stripeApiKey = params.kwargs["api-key"] || process.env.STRIPE_API_KEY;
     var amountStr = params.kwargs.amount || process.env.AMOUNT;
     var chargeDescriptionStr = params.kwargs["charge-description"] || process.ENV.CHARGE_DESCRIPTION;
 
-    var stripe = require("stripe")(stripeApiKey);
+    var stripe = stripeLib(stripeApiKey);
     var amountToCharge = parseInt(amountStr);
 
     var token = params.kwargs.stripeToken;
@@ -36,7 +37,7 @@ module.exports = (params, callback) => {
     var charge = stripe.charges.create(chargeParams, function(err, charge) {
         return callback(err, {
             status: "ok",
-            message: ((charge.outcome || {}).seller_message) || 'Payment completed.'
+            message: charge && ((charge.outcome || {}).seller_message) || 'Payment completed.'
         });
     });
 };
