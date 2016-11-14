@@ -2,6 +2,8 @@
 
 This is a [stdlib](https://stdlib.com) service that handles Stripe charges. You can create server-less landing pages that have payment functionality in minutes!
 
+If you want to make any major changes, please make a [fork](#fork-destination-box).
+
 ## Example
 
 You can find a working example [here](https://nemo.github.com/stripe-f). It's using a Stripe test environment, so you can use one of their [test credit cards](https://stripe.com/docs/testing#cards): `4242 4242 4242 4242`.
@@ -39,7 +41,7 @@ You can push the service with your edited environment to the cloud using `lib up
 
 The service is built to be used alongside Stripe Checkout without any modifications. However, if you'd like to avoid a redirect from the service then you can customize the Checkout button to avoid it.
 
-#### Stripe Checkout
+### Stripe Checkout (with redirect)
 
 You can use the vanilla Stripe Checkout system out of the box with the `charge_checkout` endpoint. You can put the URL of the `charge_checkout` endpoint in the `action` parameter of the form:
 
@@ -59,21 +61,17 @@ You can use the vanilla Stripe Checkout system out of the box with the `charge_c
     </form>
 ```
 
-##### Successful Payment
+#### Successful Payment
 On a successful payment, a redirect will be made with `REDIRECT_URL` as the destination after `REDIRECT_TIMEOUT` seconds. If no `REDIRECT_TIMEOUT` is provided, the redirect is instantaneous.
 
 `REDIRECT_URL` will have a `payment_success=true` appended to its query parameters.
 
-##### Failed Payment
+#### Failed Payment
 On a failed payment, a redirect will be made with `REDIRECT_URL` as the destination after `REDIRECT_TIMEOUT` seconds. If no `REDIRECT_TIMEOUT` is provided, the redirect is instantaneous.
 
 `REDIRECT_URL` will have `payment_failure=true` and `payment_error=<error-message>` appended to its query parameters.
 
-#### Custom
-
-### Stripe button
-
-If you want to make any major changes, please make a [fork](#fork-destination-box).
+### Stripe Checkout (without redirect)
 
 ## Documentation
 ### /stripe/charge
