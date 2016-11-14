@@ -3,25 +3,107 @@
     <head>
         <meta charset="utf-8">
         <title>Serverless Stripe integration with stdlib</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/styles/default.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
     </head>
     <body>
-        <form action="https://f.stdlib.com/nemo/stripe@dev/charge_checkout" method="POST">
-            <input type="hidden" value="https://nemo.github.io/stripe-f/" name="redirect-url" />
-            <input type="hidden" value="10" name="redirect-timeout" />
-            <input type="hidden" value="999" name="amount" />
-            <input type="hidden" value="Test Payment" name="charge-description" />
-            <input type="hidden" value="sk_test_ffQOJwoAxcJLfTCS0TK2lURS" name="api-key" />
-            <script
-                src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                data-key="pk_test_Wde01TzOa2lCe3mGBRuRxBOQ"
-                data-amount="999"
-                data-name="Name"
-                data-shipping-address="true"
-                data-billing-address="true"
-                data-description="Widget"
-                data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
-                data-locale="auto">
-              </script>
-        </form>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-md-12 text-center">
+                    <h1>Stripe-f</h1>
+                    <p class="lead">Server-less Stripe <a href="http://stdlib.com/services/nemo/stripe">stdlib</a> service.</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-md-10 col-md-offset-1 col-xs-offset-0">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-5 text-right">
+                            <h2>Stripe Checkout</h2>
+                            <p>
+                                Without having to host a server or build an app, you can build a landing page using this service and charge your users.
+                            </p>
+                            <p>
+                                The button below is powered by it, you can use a Stripe test card like <code>4242 4242 4242 4242</code> to create a test charge.
+                            </p>
+                            <form action="https://f.stdlib.com/nemo/stripe@dev/charge_checkout" method="POST">
+                                <input type="hidden" value="https://nemo.github.io/stripe-f/" name="redirect-url" />
+                                <input type="hidden" value="10" name="redirect-timeout" />
+                                <input type="hidden" value="999" name="amount" />
+                                <input type="hidden" value="Test Payment" name="charge-description" />
+                                <!-- This is highly discouraged. Don't do this at home. You can set this from an environment variable instead. -->
+                                <input type="hidden" value="sk_test_ffQOJwoAxcJLfTCS0TK2lURS" name="api-key" />
+                                <script
+                                    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                                    data-key="pk_test_Wde01TzOa2lCe3mGBRuRxBOQ"
+                                    data-amount="999"
+                                    data-name="Name"
+                                    data-shipping-address="true"
+                                    data-billing-address="true"
+                                    data-description="Widget"
+                                    data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                                    data-locale="auto">
+                                  </script>
+                            </form>
+
+                            <p>Here's the <a href="">code</a> and <a href="http://stdlib.com/services/nemo/stripe">function specification</a> </p>
+                        </div>
+                        <pre class="col-xs-12 col-md-7">
+                            <code class="html text-left">
+&lt;form
+    action=&quot;https://f.stdlib.com/nemo/stripe@dev/charge_checkout&quot;
+    method=&quot;POST&quot;&gt;
+
+     &lt;input type=&quot;hidden&quot;
+               value=&quot;https://nemo.github.io/stripe-f/&quot;
+               name=&quot;redirect-url&quot; /&gt;
+     &lt;input type=&quot;hidden&quot;
+               value=&quot;10&quot;
+               name=&quot;redirect-timeout&quot; /&gt;
+     &lt;input type=&quot;hidden&quot;
+               value=&quot;999&quot;
+               name=&quot;amount&quot; /&gt;
+     &lt;input type=&quot;hidden&quot;
+               value=&quot;Test Payment&quot;
+               name=&quot;charge-description&quot; /&gt;
+
+    &lt;!-- This is highly discouraged. Don't do this at home. You can set this from an environment variable instead. --&gt;
+    &lt;input type=&quot;hidden&quot;
+              value=&quot;sk_test_ffQOJwoAxcJLfTCS0TK2lURS&quot;
+              name=&quot;api-key&quot; /&gt;
+
+    &lt;script
+        src=&quot;https://checkout.stripe.com/checkout.js&quot; class=&quot;stripe-button&quot;
+        data-key=&quot;pk_test_Wde01TzOa2lCe3mGBRuRxBOQ&quot;
+        data-amount=&quot;999&quot;
+        data-name=&quot;Name&quot;
+        data-shipping-address=&quot;true&quot;
+        data-billing-address=&quot;true&quot;
+        data-description=&quot;Widget&quot;
+        data-image=&quot;https://stripe.com/img/documentation/checkout/marketplace.png&quot;
+        data-locale=&quot;auto&quot;&gt;
+    &lt;/script&gt;
+&lt;/form&gt;
+                            </code>
+                        </pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <style>
+
+            .hljs {
+                background: inherit !important;
+            }
+
+        </style>
+        <script>
+            hljs.initHighlightingOnLoad();
+        </script>
     </body>
 </html>

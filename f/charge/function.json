@@ -3,6 +3,9 @@
   "description": "Stripe Checkout Charge",
   "args": [],
   "kwargs": {
+    "amount": "Amount to charge. This is set here for security reasons. It has to be in cents.",
+    "charge-description": "Text that shows up on the credit card statement",
+    "api-key": "API key from Stripe",
     "stripeToken": "The ID of the token representing the payment details (required)",
     "stripeEmail": "The email address the user entered during the Checkout process",
     "stripeBillingName": "Billing Address information (optional)",

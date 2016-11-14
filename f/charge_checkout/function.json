@@ -3,7 +3,11 @@
   "description": "Stripe Checkout Charge (Form)",
   "args": [],
   "kwargs": {
-    "redirectUrl": "URL to redirect to on success or failure (required)",
+    "redirect-url": "URL to redirect to on success or failure (required)",
+    "redirect-timeout": "Timeout in seconds to wait on the success / failure page before redirecting",
+    "amount": "Amount to charge. This is set here for security reasons. It has to be in cents.",
+    "charge-description": "Text that shows up on the credit card statement",
+    "api-key": "API key from Stripe",
     "stripeToken": "The ID of the token representing the payment details",
     "stripeEmail": "The email address the user entered during the Checkout process",
     "stripeBillingName": "Billing Address information (optional)",
