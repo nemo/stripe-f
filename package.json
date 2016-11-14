@@ -5,6 +5,7 @@
   "author": "nemo <nima@halfmoon.ws>",
   "main": "f/charge/index.js",
   "dependencies": {
+    "f": "^1.1.0",
     "qs": "^6.3.0",
     "stripe": "^4.12.0",
     "url": "^0.11.0"

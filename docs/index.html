@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8">
         <title>Serverless Stripe integration with stdlib</title>
+        <script src="f.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -13,24 +14,48 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
     </head>
     <body>
-        <div class="container">
+        <div class="container-fluid fold">
             <div class="row">
-                <div class="col-xs-12 col-md-12 text-center">
-                    <h1>Stripe-f</h1>
-                    <p class="lead">Server-less Stripe <a href="http://stdlib.com/services/nemo/stripe">stdlib</a> service.</p>
+                <div class="col-xs-12 col-md-4 col-md-offset-4 text-center">
+                    <h1>stripe-f</h1>
+                    <p class="lead">Easiest way to charge users, without needing a backend. A Stripe wrapper build on top of <a href="http://stdlib.com/services/nemo/stripe">stdlib</a>.</p>
                 </div>
             </div>
+        </div>
+
+        <div class="container-fluid header">
+            <div class="row">
+                <div class="col-xs-12 col-md-12 text-center">
+                    <ul class="list-inline list-unstyled">
+                        <li><a href="">docs</a></li>
+                        <li><a href="">stdlib service</a></li>
+                        <li><a class="github-button" href="https://github.com/nemo/stripe-f" aria-label="Star nemo/stripe-f on GitHub">Star</a></li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
             <div class="row">
                 <div class="col-xs-12 col-md-10 col-md-offset-1 col-xs-offset-0">
                     <div class="row">
                         <div class="col-xs-12 col-md-5 text-right">
-                            <h2>Stripe Checkout</h2>
+                            <h2>Stripe Checkout<br/><span class="small">(with redirect)</span></h2>
                             <p>
                                 Without having to host a server or build an app, you can build a landing page using this service and charge your users.
                             </p>
                             <p>
                                 The button below is powered by it, you can use a Stripe test card like <code>4242 4242 4242 4242</code> to create a test charge.
                             </p>
+                            <p>Note that this specific function will redirect the user to the given <code>redirect-url</code>. You can read more about how it all works <a href="https://github.com/nemo/stripe-f#stripe-checkout-with-redirect">here</a>.</p>
+
+                            <h3>Usage</h3>
+                            <p>
+                                <a href="http://stdlib.com/services/nemo/stripe">nemo/stripe/charge_checkout</a>
+                            </p>
+
+                            <h3>Example</h3>
                             <form action="https://f.stdlib.com/nemo/stripe@dev/charge_checkout" method="POST">
                                 <input type="hidden" value="https://nemo.github.io/stripe-f/" name="redirect-url" />
                                 <input type="hidden" value="10" name="redirect-timeout" />
@@ -51,7 +76,6 @@
                                   </script>
                             </form>
 
-                            <p>Here's the <a href="">code</a> and <a href="http://stdlib.com/services/nemo/stripe">function specification</a> </p>
                         </div>
                         <pre class="col-xs-12 col-md-7">
                             <code class="html text-left">
@@ -94,16 +118,178 @@
                     </div>
                 </div>
             </div>
+
+
+            <div class="row">
+                <div class="col-xs-12 col-md-10 col-md-offset-1 col-xs-offset-0">
+                    <div class="row">
+                        <pre class="col-xs-12 col-md-7">
+                            <code class="html text-left">
+&lt;form
+    action=&quot;https://f.stdlib.com/nemo/stripe@dev/charge_checkout&quot;
+    method=&quot;POST&quot;&gt;
+
+     &lt;input type=&quot;hidden&quot;
+               value=&quot;https://nemo.github.io/stripe-f/&quot;
+               name=&quot;redirect-url&quot; /&gt;
+     &lt;input type=&quot;hidden&quot;
+               value=&quot;10&quot;
+               name=&quot;redirect-timeout&quot; /&gt;
+     &lt;input type=&quot;hidden&quot;
+               value=&quot;999&quot;
+               name=&quot;amount&quot; /&gt;
+     &lt;input type=&quot;hidden&quot;
+               value=&quot;Test Payment&quot;
+               name=&quot;charge-description&quot; /&gt;
+
+    &lt;!-- This is highly discouraged. Don't do this at home. You can set this from an environment variable instead. --&gt;
+    &lt;input type=&quot;hidden&quot;
+              value=&quot;sk_test_ffQOJwoAxcJLfTCS0TK2lURS&quot;
+              name=&quot;api-key&quot; /&gt;
+
+    &lt;script
+        src=&quot;https://checkout.stripe.com/checkout.js&quot; class=&quot;stripe-button&quot;
+        data-key=&quot;pk_test_Wde01TzOa2lCe3mGBRuRxBOQ&quot;
+        data-amount=&quot;999&quot;
+        data-name=&quot;Name&quot;
+        data-shipping-address=&quot;true&quot;
+        data-billing-address=&quot;true&quot;
+        data-description=&quot;Widget&quot;
+        data-image=&quot;https://stripe.com/img/documentation/checkout/marketplace.png&quot;
+        data-locale=&quot;auto&quot;&gt;
+    &lt;/script&gt;
+&lt;/form&gt;
+
+                            </code>
+                        </pre>
+                        <div class="col-xs-12 col-md-5 text-left">
+                            <h2>Stripe Checkout<br /><span class="small">(without redirect)</span></h2>
+                            <p>
+                                You can also use the JSON version of the function and handle the request yourself, so the user won't have to be redirected.
+                            </p>
+                            <p>
+                                Best way to do this is to use the f library from stdlib and call the function when the user has filled out the Stripe data.
+                            </p>
+
+                            <h3>Usage</h3>
+                            <p>
+                                <a href="http://stdlib.com/services/nemo/stripe">nemo/stripe/charge</a>
+                            </p>
+
+                            <h3>Example</h3>
+                            <button id="customButton" class="btn btn-primary">Pay with Card</button>
+                            <p id="custom-payment-status"></p>
+                            <script>
+                                var handler = StripeCheckout.configure({
+                                  key: 'pk_test_Wde01TzOa2lCe3mGBRuRxBOQ',
+                                  image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
+                                  locale: 'auto',
+                                  token: function(token, args) {
+                                      console.log("got token", token, args);
+                                      var params = {
+                                          stripeToken: token.id,
+                                          stripeEmail: token.email,
+                                          amount: 999,
+                                          // Note: this is highly discouraged, you can do this using environment variables
+                                          "api-key": "sk_test_ffQOJwoAxcJLfTCS0TK2lURS",
+                                          "charge-description": "Test payment"
+                                      };
+
+                                      if (args && args.shipping_name && args.shipping_name.length) {
+                                          params.stripeShippingName = args.shipping_name;
+                                          params.stripeShippingAddressLine1 = args.shipping_address_line1;
+                                          params.stripeShippingAddressZip = args.shipping_address_zip;
+                                          params.stripeShippingAddressState = args.shipping_address_state;
+                                          params.stripeShippingAddressCity = args.shipping_address_city;
+                                          params.stripeShippingAddressCountry = args.shipping_address_country;
+                                      }
+
+                                      if (args && args.billing_name && args.billing_name.length) {
+                                          params.stripeBillingName = args.billing_name;
+                                          params.stripeBillingAddressLine1 = args.billing_address_line1;
+                                          params.stripeBillingAddressZip = args.billing_address_zip;
+                                          params.stripeBillingAddressState = args.billing_address_state;
+                                          params.stripeBillingAddressCity = args.billing_address_city;
+                                          params.stripeBillingAddressCountry = args.billing_address_country;
+                                      }
+
+                                      console.log("f", params);
+                                      f("nemo/charge")(params, function(err, result) {
+                                          if (err) $("#custom-payment-status").html("Payment failed: " + err);
+                                          else $("#custom-payment-status").html("Payment Successful!");
+                                      });
+                                  }
+                                });
+
+                                document.getElementById('customButton').addEventListener('click', function(e) {
+                                  // Open Checkout with further options:
+                                  handler.open({
+                                    name: 'Nima Gardideh',
+                                    description: 'Widget',
+                                    shippingAddress: true,
+                                    billingAddress: true,
+                                    amount: 999
+                                  });
+                                  e.preventDefault();
+                                });
+
+                                // Close Checkout on page navigation:
+                                window.addEventListener('popstate', function() {
+                                  handler.close();
+                                });
+                            </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+
         <style>
+            .header {
+                background-color: #f9f2f4;
+                margin-bottom: 40px;
+                padding-top: 10px;
+            }
+
+            .list-inline>li:last-child {
+                margin-top: 4px;
+            }
+
+            .list-inline>li {
+                vertical-align: middle;
+            }
+
+            .fold h1 {
+                font-size: 7rem;
+            }
+            .fold a {
+                color: white;
+                font-weight: bold;
+            }
+
+            .fold {
+                background: #009BE3;
+                color: white;
+                width: 100%;
+
+
+                padding-top: 20px;
+                padding-bottom: 20px;
+            }
 
             .hljs {
                 background: inherit !important;
             }
 
+            pre {
+                max-height: 460px;
+                margin-bottom: 40px;
+            }
         </style>
         <script>
             hljs.initHighlightingOnLoad();
         </script>
+
+        <script async defer src="https://buttons.github.io/buttons.js"></script>
     </body>
 </html>

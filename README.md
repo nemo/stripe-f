@@ -67,7 +67,7 @@ On a failed payment, a redirect will be made with `redirect-url` as the destinat
 
 If you don't want to expose your keys and want to make sure users can't change the amount of the charge on the form, then I recommend making a fork of this service and using the environment variables below. This is *absolutely required* for a production environment.
 
-Fork this repository to and add an `env.json` file - you can start by using the example one [here](/blob/master/env.json-example).
+Fork this repository to and add an `env.json` file - you can start by using the example one [here](https://github.com/nemo/stripe-f//blob/master/env.json-example).
 
 Here are the environment variables:
 
@@ -89,11 +89,11 @@ The service is built to be used alongside Stripe Checkout without any modificati
 
 ## Functions
 ### /stripe/charge
-[function spec](/blob/master/f/charge/function.json) | [source](/blob/master/f/charge/index.js)
+[function spec](https://github.com/nemo/stripe-f//blob/master/f/charge/function.json) | [source](https://github.com/nemo/stripe-f//blob/master/f/charge/index.js)
 
 This function will create a charge for the given token with a JSON response. It also only accepts JSON input.
 
 ### /stripe/charge_checkout
-[function spec](/blob/master/f/charge_checkout/function.json) | [source](/blob/master/f/charge_checkout/index.js)
+[function spec](https://github.com/nemo/stripe-f//blob/master/f/charge_checkout/function.json) | [source](https://github.com/nemo/stripe-f//blob/master/f/charge_checkout/index.js)
 
 This function is a wrapper around the charge function to accept `application/x-www-form-urlencoded` inputs and respond with an HTML page to redirect back to a desired success / failure page.

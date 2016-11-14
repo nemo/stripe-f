@@ -47,9 +47,6 @@ module.exports = (params, callback) => {
 
         var redirectUrlPath = url.format(redirectUrl);
 
-        if (err) return callback(null, {"failed": 1});
-        else return callback(null, {"success": true});
-
         if (err) return callback(null, redirectPage(((err || {}).message) || "Something went wrong! Payment wasn't processed", redirectUrlPath, timeoutDuration));
         else return callback(null, redirectPage(response.message, redirectUrlPath, timeoutDuration));
     });
