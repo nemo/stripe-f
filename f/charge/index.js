@@ -1,9 +1,14 @@
 /* Import dependencies, declare constants */
 var qs = require('qs');
-var stripe = require("stripe")(process.env.STRIPE_API_KEY);
-var amountToCharge = parseInt(process.env.AMOUNT);
 
 module.exports = (params, callback) => {
+    var stripeApiKey = params.kwargs["api-key"] || process.env.STRIPE_API_KEY;
+    var amountStr = params.kwargs.amount || process.env.AMOUNT;
+    var chargeDescriptionStr = params.kwargs["charge-description"] || process.ENV.CHARGE_DESCRIPTION;
+
+    var stripe = require("stripe")(stripeApiKey);
+    var amountToCharge = parseInt(amountStr);
+
     var token = params.kwargs.stripeToken;
     var email = params.kwargs.stripeEmail;
     var shipping = {
@@ -22,7 +27,7 @@ module.exports = (params, callback) => {
       amount: amountToCharge, // Amount in cents
       currency: "usd",
       source: token,
-      description: process.env.CHARGE_DESCRIPTION || "Example charge"
+      description: chargeDescriptionStr
     };
 
     if (shipping && shipping.name.length)

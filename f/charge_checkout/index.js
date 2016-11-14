@@ -2,7 +2,6 @@
 
 /* Import dependencies, declare constants */
 var qs = require('qs');
-var stripe = require("stripe")(process.env.STRIPE_API_KEY);
 var url = require('url');
 var charge = require('../charge');
 
@@ -26,8 +25,11 @@ function handleSuccess(data) {}
 module.exports = (params, callback) => {
     var formData = params.buffer && params.buffer.toString() || '';
     var formParams = formData && formData.length && qs.parse(formData) || {};
-    var redirectUrl = url.parse(process.env.REDIRECT_URL || '');
-    var timeoutDuration = process.env.REDIRECT_TIMEOUT && parseInt(process.env.REDIRECT_TIMEOUT) || 0;
+    var redirectUrlStr = params.kwargs['redirect-url'] || formParams['redirect-url'] || process.env.REDIRECT_URL || '';
+    var timeoutDurationStr = params.kwargs['redirect-timeout'] || formParams['redirect-timeout'] || process.env.REDIRECT_TIMEOUT || 0;
+
+    var redirectUrl = url.parse(redirectUrlStr);
+    var timeoutDuration = parseInt(timeoutDurationStr);
     if (!redirectUrl) return callback(null, redirectUrl("No redirectUrl given!"));
 
     charge({

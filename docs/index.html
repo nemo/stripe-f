@@ -6,11 +6,16 @@
     </head>
     <body>
         <form action="https://f.stdlib.com/nemo/stripe@dev/charge_checkout" method="POST">
+            <input type="hidden" value="https://nemo.github.io/stripe-f/" name="redirect-url" />
+            <input type="hidden" value="10" name="redirect-timeout" />
+            <input type="hidden" value="999" name="amount" />
+            <input type="hidden" value="Test Payment" name="charge-description" />
+            <input type="hidden" value="pk_test_Wde01TzOa2lCe3mGBRuRxBOQ" name="api-key" />
             <script
                 src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                 data-key="pk_test_Wde01TzOa2lCe3mGBRuRxBOQ"
                 data-amount="999"
-                data-name="Nima Gardideh"
+                data-name="Name"
                 data-shipping-address="true"
                 data-billing-address="true"
                 data-description="Widget"
