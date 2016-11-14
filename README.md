@@ -62,6 +62,73 @@ On a failed payment, a redirect will be made with `redirect-url` as the destinat
 
 ### Customized Stripe Checkout
 
+In order to avoid the redirect, you can use the <a href="https://github.com/poly/f">f</a> library to call the function after Stripe has generated the card token from the user.
+
+Here's a full example:
+
+```html
+<button id="customButton" class="btn btn-primary">Pay with Card</button>
+<p id="custom-payment-status"></p>
+<script>
+    var handler = StripeCheckout.configure({
+      key: 'pk_test_Wde01TzOa2lCe3mGBRuRxBOQ',
+      image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
+      locale: 'auto',
+      token: function(token, args) {
+          console.log("got token", token, args);
+          var params = {
+              stripeToken: token.id,
+              stripeEmail: token.email,
+              amount: 999,
+              // Note: this is highly discouraged, you can do this using environment variables
+              "api-key": "sk_test_ffQOJwoAxcJLfTCS0TK2lURS",
+              "charge-description": "Test payment"
+          };
+
+          if (args && args.shipping_name && args.shipping_name.length) {
+              params.stripeShippingName = args.shipping_name;
+              params.stripeShippingAddressLine1 = args.shipping_address_line1;
+              params.stripeShippingAddressZip = args.shipping_address_zip;
+              params.stripeShippingAddressState = args.shipping_address_state;
+              params.stripeShippingAddressCity = args.shipping_address_city;
+              params.stripeShippingAddressCountry = args.shipping_address_country;
+          }
+
+          if (args && args.billing_name && args.billing_name.length) {
+              params.stripeBillingName = args.billing_name;
+              params.stripeBillingAddressLine1 = args.billing_address_line1;
+              params.stripeBillingAddressZip = args.billing_address_zip;
+              params.stripeBillingAddressState = args.billing_address_state;
+              params.stripeBillingAddressCity = args.billing_address_city;
+              params.stripeBillingAddressCountry = args.billing_address_country;
+          }
+
+          console.log("f", params);
+          f("nemo/stripe/charge@dev")(params, function(err, result) {
+              if (err) $("#custom-payment-status").html("Payment failed: " + err);
+              else $("#custom-payment-status").html("Payment Successful!");
+          });
+      }
+    });
+
+    document.getElementById('customButton').addEventListener('click', function(e) {
+      // Open Checkout with further options:
+      handler.open({
+        name: 'Nima Gardideh',
+        description: 'Widget',
+        shippingAddress: true,
+        billingAddress: true,
+        amount: 999
+      });
+      e.preventDefault();
+    });
+
+    // Close Checkout on page navigation:
+    window.addEventListener('popstate', function() {
+      handler.close();
+    });
+</script>
+```
 
 ### Security
 

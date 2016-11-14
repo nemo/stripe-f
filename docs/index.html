@@ -125,41 +125,67 @@
                     <div class="row">
                         <pre class="col-xs-12 col-md-7">
                             <code class="html text-left">
-&lt;form
-    action=&quot;https://f.stdlib.com/nemo/stripe@dev/charge_checkout&quot;
-    method=&quot;POST&quot;&gt;
+&lt;button id=&quot;customButton&quot; class=&quot;btn btn-primary&quot;&gt;
+    Pay with Card
+&lt;/button&gt;
+&lt;p id=&quot;custom-payment-status&quot;&gt;&lt;/p&gt;
+&lt;script&gt;
+var handler = StripeCheckout.configure({
+  key: 'pk_test_Wde01TzOa2lCe3mGBRuRxBOQ',
+  image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
+  locale: 'auto',
+  token: function(token, args) {
+    var params = {
+      stripeToken: token.id,
+      stripeEmail: token.email,
+      amount: 999,
+      // Note: this is highly discouraged, you can do this using environment variables
+      &quot;api-key&quot;: &quot;sk_test_ffQOJwoAxcJLfTCS0TK2lURS&quot;,
+      &quot;charge-description&quot;: &quot;Test payment&quot;
+    };
 
-     &lt;input type=&quot;hidden&quot;
-               value=&quot;https://nemo.github.io/stripe-f/&quot;
-               name=&quot;redirect-url&quot; /&gt;
-     &lt;input type=&quot;hidden&quot;
-               value=&quot;10&quot;
-               name=&quot;redirect-timeout&quot; /&gt;
-     &lt;input type=&quot;hidden&quot;
-               value=&quot;999&quot;
-               name=&quot;amount&quot; /&gt;
-     &lt;input type=&quot;hidden&quot;
-               value=&quot;Test Payment&quot;
-               name=&quot;charge-description&quot; /&gt;
+    if (args &amp;&amp; args.shipping_name &amp;&amp; args.shipping_name.length) {
+      params.stripeShippingName = args.shipping_name;
+      params.stripeShippingAddressLine1 = args.shipping_address_line1;
+      params.stripeShippingAddressZip = args.shipping_address_zip;
+      params.stripeShippingAddressState = args.shipping_address_state;
+      params.stripeShippingAddressCity = args.shipping_address_city;
+      params.stripeShippingAddressCountry = args.shipping_address_country;
+    }
 
-    &lt;!-- This is highly discouraged. Don't do this at home. You can set this from an environment variable instead. --&gt;
-    &lt;input type=&quot;hidden&quot;
-              value=&quot;sk_test_ffQOJwoAxcJLfTCS0TK2lURS&quot;
-              name=&quot;api-key&quot; /&gt;
+    if (args &amp;&amp; args.billing_name &amp;&amp; args.billing_name.length) {
+      params.stripeBillingName = args.billing_name;
+      params.stripeBillingAddressLine1 = args.billing_address_line1;
+      params.stripeBillingAddressZip = args.billing_address_zip;
+      params.stripeBillingAddressState = args.billing_address_state;
+      params.stripeBillingAddressCity = args.billing_address_city;
+      params.stripeBillingAddressCountry = args.billing_address_country;
+    }
 
-    &lt;script
-        src=&quot;https://checkout.stripe.com/checkout.js&quot; class=&quot;stripe-button&quot;
-        data-key=&quot;pk_test_Wde01TzOa2lCe3mGBRuRxBOQ&quot;
-        data-amount=&quot;999&quot;
-        data-name=&quot;Name&quot;
-        data-shipping-address=&quot;true&quot;
-        data-billing-address=&quot;true&quot;
-        data-description=&quot;Widget&quot;
-        data-image=&quot;https://stripe.com/img/documentation/checkout/marketplace.png&quot;
-        data-locale=&quot;auto&quot;&gt;
-    &lt;/script&gt;
-&lt;/form&gt;
+    f(&quot;nemo/stripe/charge@dev&quot;)(params, function(err, result) {
+      if (err) $(&quot;#custom-payment-status&quot;).html(&quot;Payment failed: &quot; + err);
+      else $(&quot;#custom-payment-status&quot;).html(&quot;Payment Successful!&quot;);
+    });
+  }
+});
 
+document.getElementById('customButton').addEventListener('click', function(e) {
+  // Open Checkout with further options:
+  handler.open({
+    name: 'Nima Gardideh',
+    description: 'Widget',
+    shippingAddress: true,
+    billingAddress: true,
+    amount: 999
+  });
+  e.preventDefault();
+});
+
+// Close Checkout on page navigation:
+window.addEventListener('popstate', function() {
+  handler.close();
+});
+&lt;/script&gt;
                             </code>
                         </pre>
                         <div class="col-xs-12 col-md-5 text-left">
