@@ -214,7 +214,7 @@
                                       }
 
                                       console.log("f", params);
-                                      f("nemo/charge")(params, function(err, result) {
+                                      f("nemo/stripe/charge@dev")(params, function(err, result) {
                                           if (err) $("#custom-payment-status").html("Payment failed: " + err);
                                           else $("#custom-payment-status").html("Payment Successful!");
                                       });
