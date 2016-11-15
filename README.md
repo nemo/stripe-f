@@ -30,7 +30,7 @@ There are a few hidden inputs that need to be set for the function:
 Here's a full example:
 
 ```html
-    <form action="https://f.stdlib.com/nemo/stripe@dev/charge_checkout" method="POST">
+    <form action="https://f.stdlib.com/nemo/stripe/charge_checkout" method="POST">
         <input type="hidden" value="https://nemo.github.io/stripe-f/" name="redirect-url" />
         <input type="hidden" name="redirect-timeout" value="10" />
         <input type="hidden" name="amount" value="999" />
@@ -63,7 +63,7 @@ On a failed payment, a redirect will be made with `redirect-url` as the destinat
 
 ### Customized Stripe Checkout
 
-In order to avoid the redirect, you can use the <a href="https://github.com/poly/f">f</a> library to call the function after Stripe has generated the card token from the user.
+In order to avoid the redirect, you can use the [f](https://github.com/poly/f) library to call the function after Stripe has generated the card token from the user.
 
 Here's a full example:
 
@@ -105,7 +105,7 @@ Here's a full example:
           }
 
           console.log("f", params);
-          f("nemo/stripe/charge@dev")(params, function(err, result) {
+          f("nemo/stripe/charge")(params, function(err, result) {
               if (err) $("#custom-payment-status").html("Payment failed: " + err);
               else $("#custom-payment-status").html("Payment Successful!");
           });
