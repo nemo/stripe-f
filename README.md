@@ -9,7 +9,7 @@ Pull requests are welcome for any additions or bug fixes.
 
 ## Example
 
-You can find a working example [here](https://nemo.github.com/stripe-f). It's using a Stripe test environment, so you can use one of their [test credit cards](https://stripe.com/docs/testing#cards): `4242 4242 4242 4242`.
+You can find a working example [here](https://nemo.github.io/stripe-f/). It's using a Stripe test environment, so you can use one of their [test credit cards](https://stripe.com/docs/testing#cards): `4242 4242 4242 4242`.
 
 ## Usage
 
