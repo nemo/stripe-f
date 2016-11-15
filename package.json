@@ -1,6 +1,6 @@
 {
   "name": "stripe-f",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Stripe Serverless Service",
   "author": "nemo <nima@halfmoon.ws>",
   "main": "f/charge/index.js",
