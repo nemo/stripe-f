@@ -1,7 +1,7 @@
-# Stripe Charge API
+# stripe-f
 [![stdlib.com service](https://img.shields.io/badge/stdlib-0.1.0-green.svg?raw=true "stdlib.com service")](https://stdlib.com/services/nemo/stripe)
 
-This is a [stdlib](https://stdlib.com) service that handles Stripe charges. You can create server-less landing pages that have payment functionality in minutes!
+The easiest way to charge users. This is a [stdlib](https://stdlib.com) service that handles Stripe charges, you can create serverless landing pages that have payment functionality in minutes!
 
 There are currently two functions: `charge` (JSON response) and `charge_checkout` (form input and HTML response).
 
