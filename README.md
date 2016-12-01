@@ -1,5 +1,5 @@
 # stripe-f
-[![stdlib.com service](https://img.shields.io/badge/stdlib-0.1.0-green.svg?raw=true "stdlib.com service")](https://stdlib.com/services/nemo/stripe)
+[![stdlib.com service](https://img.shields.io/badge/stdlib-0.1.3-green.svg?raw=true "stdlib.com service")](https://stdlib.com/services/nemo/stripe)
 
 The easiest way to charge users. This is a [stdlib](https://stdlib.com) service that handles Stripe charges, you can create serverless landing pages that have payment functionality in minutes!
 
